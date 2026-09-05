@@ -126,12 +126,18 @@ ttgo_lora32/esp32/procpu   # source-only, no published firmware
 
 ```
 lora_e5_mini
+loraharvesterbox/stm32wle5xx
 ```
 
 > **Seeed LoRa-E5 mini** (`lora_e5_mini`): STM32WLE5JC with the integrated
 > SX1262-class sub-GHz radio. No BLE and no USB device — the companion
 > protocol and the CLI both run over USART1 (bridged to USB-C by the onboard
 > USB-UART chip). Flash over SWD/ST-Link with `west flash`.
+>
+> **Lora Harvester Box** (`loraharvesterbox/stm32wle5xx`): RAK3172
+> (STM32WLE5CC) on the h0lad energy-harvester carrier (TI BQ25570).
+> Console/CLI over USART1 (PB6/PB7). Flash over SWD/ST-Link with
+> `west flash`.
 
 ## MG24 (Silicon Labs)
 

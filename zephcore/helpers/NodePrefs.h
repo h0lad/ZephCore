@@ -394,7 +394,7 @@ static inline void initNodePrefs(NodePrefs* prefs) {
 	/* Radio params - MUST match LoRaConfig.h for interop with companion nodes */
 	prefs->freq = 869.618f;           // LoRaConfig::FREQ_HZ / 1000000.0
 	prefs->bw = 62.5f;                // LoRaConfig::BANDWIDTH
-	prefs->sf = 7;                    // LoRaConfig::SPREADING_FACTOR
+	prefs->sf = CONFIG_ZEPHCORE_DEFAULT_LORA_SF;   // LoRaConfig::SPREADING_FACTOR
 	prefs->cr = 5;                    // CR 4/5 (MeshCore uses 5-8 for CR 4/5 through 4/8)
 #ifdef CONFIG_ZEPHCORE_DEFAULT_TX_POWER_DBM
 	prefs->tx_power_dbm = CONFIG_ZEPHCORE_DEFAULT_TX_POWER_DBM;
@@ -442,7 +442,11 @@ static inline void initNodePrefs(NodePrefs* prefs) {
 	 * boards that have one, so 1 is the historical behaviour and the only safe
 	 * default -- 0 costs the FEM's RX gain (~16 dB on SKY66122). */
 	prefs->fem_rxgain = 1;
-	prefs->rx_duty_cycle = 0;         // Default OFF — continuous RX for best reliability
+#ifdef CONFIG_ZEPHCORE_LORA_RX_DUTY_CYCLE
+	prefs->rx_duty_cycle = 1;
+#else
+	prefs->rx_duty_cycle = 0;         // Default OFF, continuous RX for best reliability
+#endif
 	prefs->_reserved_apc_enabled = 0; // reserved (was APC), see NodePrefs
 	prefs->_reserved_apc_margin = 0;  // reserved (was APC), see NodePrefs
 	prefs->cad_auto = 1;              // Default ON — adaptive staircase acts on probe stats

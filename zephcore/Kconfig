@@ -591,6 +591,14 @@ config ZEPHCORE_MAX_TX_POWER_DBM
 	  above this, protecting external PAs from damage.
 	  Example: Station G2 caps at 19 dBm to stay below PA P1dB (35 dBm).
 
+config ZEPHCORE_DEFAULT_LORA_SF
+	int "Default LoRa spreading factor (fresh devices)"
+	default 7
+	range 5 12
+	help
+	  Default spreading factor for fresh devices.  Set 8 for the EU868/Narrow
+	  preset (869.618 MHz / 62.5 kHz).
+
 config ZEPHCORE_SX126X_HELTEC_REG_PATCH
 	bool "Apply undocumented SX126x register 0x8B5 RX improvement (external PA/FEM)"
 	depends on ZEPHCORE_RADIO_NATIVE

@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2026 ZephCore
+ * SPDX-License-Identifier: MIT
+ * Lora Harvester Box (RAK3172 / STM32WLE5CC) ZephCore overlay.
+ */
+
+#include <zephyr/dt-bindings/adc/adc.h>
+
+/ {
+	/* Battery ADC: PB3 = ADC1_IN2, ~2.78:1 divider.
+	 * Calibrate with `set adc.multiplier target <mV>`. */
+	zephyr,user {
+		io-channels = <&adc1 2>;
+		vbat-mv-multiplier = <9166>;
+	};
+};
+
+#include "../../common/filesystem.dtsi"

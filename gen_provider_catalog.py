@@ -101,6 +101,7 @@ MAKER_BY_DEVICE = {
     "Seeed Studio Xiao MG24": "seeed",
     "Seeed Studio LoRa-E5 mini": "seeed",
     "Meshnology W12": "meshnology",
+    "Lora Harvester Box": "rak",
 }
 
 DESCRIPTION = (
@@ -251,6 +252,9 @@ BOARDS = [
     # offered under companionUsb (a wired serial port, same as the app sees on
     # any CDC-ACM board) rather than companionBle.
     dict(stem="lora_e5_mini", kind="stm32wl", device="Seeed Studio LoRa-E5 mini",
+         new=True, img="lora.svg"),
+    # RAK3172 (STM32WLE5CC) on the h0lad Lora Harvester Box carrier.
+    dict(stem="loraharvesterbox-stm32wle5xx", kind="stm32wl", device="Lora Harvester Box",
          new=True, img="lora.svg"),
 
     # --- Native Linux (noflash, download only): new tiles ----------------

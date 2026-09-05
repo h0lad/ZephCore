@@ -59,6 +59,7 @@ MG24_boards=(
 
 STM32WL_boards=(
     lora_e5_mini
+    loraharvesterbox/stm32wle5xx
 )
 
 ESP32_boards=(
