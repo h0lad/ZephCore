@@ -1,0 +1,67 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Solar Meshtastic Node (Heltec HT-CT62, ESP32-C3) + SX1262
+ *
+ * SX1262 on SPI2: SCLK=10, MOSI=7, MISO=6, NSS=8, DIO1=3, BUSY=4, RESET=5.
+ * I2C0 SDA=19/SCL=18. Battery ADC GPIO1 (ADC1_CH1).
+ */
+
+#include <zephyr/dt-bindings/lora/sx126x.h>
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/gpio/espressif-esp32-gpio.h>
+
+/ {
+	aliases {
+		lora0 = &lora;
+	};
+
+	/* Battery ADC, ~2.037:1 divider.  Recalibrate with `set adc.multiplier`. */
+	zephyr,user {
+		io-channels = <&adc0 1>;
+		vbat-mv-multiplier = <8963>;
+	};
+};
+
+&spi2 {
+	cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;  /* NSS */
+
+	lora: lora@0 {
+		compatible = "semtech,sx1262";
+		reg = <0>;
+		spi-max-frequency = <8000000>;
+
+		/* Held across light sleep; inert without CONFIG_PM. */
+		reset-gpios = <&gpio0 5 (GPIO_OPEN_DRAIN | GPIO_ACTIVE_LOW |
+					 ESP32_GPIO_SLEEP_HOLD_EN)>;      /* RESET */
+		busy-gpios  = <&gpio0 4 GPIO_ACTIVE_HIGH>;                     /* BUSY */
+		dio1-gpios  = <&gpio0 3 (GPIO_PULL_DOWN | GPIO_ACTIVE_HIGH)>;  /* DIO1 */
+
+		dio2-tx-enable;
+
+		dio3-tcxo-voltage = <SX126X_DIO3_TCXO_1V8>;
+		tcxo-power-startup-delay-ms = <10>;
+
+		rx-boosted;
+	};
+};
+
+&adc0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@1 {
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1_4";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,resolution = <12>;
+	};
+};
+
+&i2c0 {
+	#include "../../common/sensors-i2c.dtsi"
+	#include "../../common/rtc-i2c.dtsi"
+};
+
+#include "../../common/filesystem.dtsi"

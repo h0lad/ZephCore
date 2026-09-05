@@ -1,0 +1,78 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Solar Meshtastic Node (Heltec HT-CT62, ESP32-C3). Console on UART0
+ * (TX=21/RX=20); GPIO18/19 are I2C, so no native USB.
+ */
+
+/dts-v1/;
+
+#include <espressif/esp32c3/esp32c3_mini_n4.dtsi>
+#include "solarmeshtasticnode-pinctrl.dtsi"
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <espressif/partitions_0x0_default.dtsi>
+
+/ {
+	model = "Solar Meshtastic Node (Heltec HT-CT62)";
+	compatible = "heltec,ht-ct62";
+
+	chosen {
+		zephyr,sram = &sram1;
+		zephyr,console = &uart0;
+		zephyr,shell-uart = &uart0;
+		zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+		zephyr,bt-hci = &esp32_bt_hci;
+	};
+
+	aliases {
+		i2c-0 = &i2c0;
+		watchdog0 = &wdt0;
+	};
+};
+
+&uart0 {
+	status = "okay";
+	current-speed = <115200>;
+	pinctrl-0 = <&uart0_default>;
+	pinctrl-names = "default";
+};
+
+/* GPIO18/19 are USB_D-/D+, used as I2C here. */
+&usb_serial {
+	status = "disabled";
+};
+
+&i2c0 {
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_STANDARD>;
+	pinctrl-0 = <&i2c0_default>;
+	pinctrl-names = "default";
+};
+
+&trng0 {
+	status = "okay";
+};
+
+&spi2 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	status = "okay";
+	pinctrl-0 = <&spim2_default>;
+	pinctrl-names = "default";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&wdt0 {
+	status = "okay";
+};
+
+&esp32_bt_hci {
+	status = "okay";
+};
+
+&wifi {
+	status = "okay";
+};

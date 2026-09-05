@@ -64,6 +64,7 @@ STM32WL_boards=(
 
 ESP32_boards=(
     xiao_esp32c3
+    solarmeshtasticnode/esp32c3
     xiao_esp32c6/esp32c6/hpcore
     xiao_esp32s3/esp32s3/procpu
     lilygo_tlora_c6/esp32c6/hpcore

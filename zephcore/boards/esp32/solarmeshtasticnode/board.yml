@@ -1,0 +1,6 @@
+board:
+  name: solarmeshtasticnode
+  full_name: Solar Meshtastic Node (Heltec HT-CT62)
+  vendor: heltec
+  socs:
+    - name: esp32c3

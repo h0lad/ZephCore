@@ -47,6 +47,7 @@ lilygo_timpulse_plus
 
 ```
 xiao_esp32c3
+solarmeshtasticnode/esp32c3
 xiao_esp32c6/esp32c6/hpcore
 xiao_esp32s3/esp32s3/procpu
 lilygo_tlora_c6/esp32c6/hpcore
@@ -85,6 +86,9 @@ ttgo_lora32/esp32/procpu   # source-only, no published firmware
 > configures the PSRAM as 2 MB quad and drives GPIO35-37, which are PSRAM pads on this part, and
 > the OLED/sensor rail never switches on. The Mesh America catalog lists it under the Heltec v4
 > tile as the "R8" rows.
+>
+> **Solar Meshtastic Node** (`solarmeshtasticnode/esp32c3`): Heltec HT-CT62
+> (ESP32-C3) + SX1262. Console/CLI on UART0 (TX=21, RX=20), no native USB.
 >
 > **Heltec Wireless Tracker** (`heltec_wireless_tracker/esp32s3/procpu`): V1.1
 > ESP32-S3-FN8 companion with SX1262, ST7735R 160x80 TFT, and UC6580 GPS.

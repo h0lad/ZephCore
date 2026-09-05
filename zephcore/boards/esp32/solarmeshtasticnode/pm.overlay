@@ -1,0 +1,21 @@
+/*
+ * SPDX-License-Identifier: MIT
+ * Light-sleep overlay for the Solar Meshtastic Node, paired with pm.conf.
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/gpio/espressif-esp32-gpio.h>
+
+&rtc_timer {
+	status = "okay";
+	wakeup-source;
+};
+
+&gpio0 {
+	wakeup-source;
+};
+
+/* Hold NSS high across light sleep. */
+&spi2 {
+	cs-gpios = <&gpio0 8 (GPIO_ACTIVE_LOW | ESP32_GPIO_SLEEP_HOLD_EN)>;
+};

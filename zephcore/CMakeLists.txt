@@ -528,9 +528,16 @@ endif()
 # accepts "@", "/" or end-of-string rather than "$" alone. No board here
 # declares a revision today; without "@" one that later did would drop out of
 # this list silently.
+#
+# solarmeshtasticnode (ESP32-C3) has DIO1 on GPIO3 — inside the C3's LP range
+# 0-7 — but no button, so it ships its own pm.conf + pm.overlay.
 if(ZEPHCORE_PLATFORM_CONF MATCHES "esp32_common" AND EXTRA_CONF_FILE MATCHES "repeater"
-   AND BOARD MATCHES "^(heltec_wifi_lora32_v3|heltec_wifi_lora32_v4|heltec_wifi_lora32_v43|heltec_wireless_tracker|heltec_wireless_tracker_v2)(@|/|$)")
-    set(ZEPHCORE_PM_CONF "${CMAKE_CURRENT_SOURCE_DIR}/boards/common/pm_esp32.conf")
+   AND BOARD MATCHES "^(heltec_wifi_lora32_v3|heltec_wifi_lora32_v4|heltec_wifi_lora32_v43|heltec_wireless_tracker|heltec_wireless_tracker_v2|solarmeshtasticnode)(@|/|$)")
+    if(BOARD MATCHES "^solarmeshtasticnode(@|/|$)")
+        set(ZEPHCORE_PM_CONF "${CMAKE_CURRENT_SOURCE_DIR}/boards/esp32/solarmeshtasticnode/pm.conf")
+    else()
+        set(ZEPHCORE_PM_CONF "${CMAKE_CURRENT_SOURCE_DIR}/boards/common/pm_esp32.conf")
+    endif()
     if(EXISTS ${ZEPHCORE_PM_CONF})
         list(APPEND ZEPHCORE_CONF_FILES ${ZEPHCORE_PM_CONF})
         zephcore_auto_pair_overlay("${ZEPHCORE_PM_CONF}")

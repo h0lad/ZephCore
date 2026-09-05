@@ -101,6 +101,7 @@ MAKER_BY_DEVICE = {
     "Seeed Studio Xiao MG24": "seeed",
     "Seeed Studio LoRa-E5 mini": "seeed",
     "Meshnology W12": "meshnology",
+    "Solar Meshtastic Node": "heltec",
     "Lora Harvester Box": "rak",
 }
 
@@ -191,6 +192,7 @@ BOARDS = [
 
     # --- ESP32 (sysbuild/MCUboot, -merged.bin): fold ---------------------
     dict(stem="xiao_esp32c3",                      kind="esp32", device="Seeed Studio Xiao C3"),
+    dict(stem="solarmeshtasticnode-esp32c3",       kind="esp32", device="Solar Meshtastic Node", new=True, img="lora.svg"),
     dict(stem="xiao_esp32s3-esp32s3-procpu",       kind="esp32", device="Seeed Studio Xiao S3 WIO"),
     dict(stem="station_g2-esp32s3-procpu",         kind="esp32", device="UnitEng Station G2"),
     dict(stem="heltec_wifi_lora32_v3-esp32s3-procpu", kind="esp32", device="Heltec v3"),
